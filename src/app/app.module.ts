@@ -10,19 +10,22 @@ import { LoginComponent } from './components/login/login.component';
 //import { AdduserComponent } from './components/adduser/adduser.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { RolePipe } from './pipes/role.pipe'
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     LoginComponent,
     HomeComponent,
     AppComponent,
     AdduserComponent,
-    RolePipe
+    RolePipe,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

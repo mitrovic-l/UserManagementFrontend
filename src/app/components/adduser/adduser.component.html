@@ -4,41 +4,52 @@
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-secondary" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-  
-              <div class="mb-md-5 mt-md-4 pb-5">
-  
-                <h2 class="fw-bold mb-2 text-light">Dodaj korisnika</h2>
-                <div class="form-outline form-white mb-3">
-                    <label class="form-label" for="firstname">Ime</label>
-                  <input type="text" id="firstname" class="form-control form-control-lg" name="firstname" [(ngModel)]="firstname" placeholder="First name here">
-                </div>
-                <div class="form-outline form-white mb-3">
-                    <label class="form-label" for="lastname">Prezime</label>
-                  <input type="text" id="lastname" class="form-control form-control-lg" name="lastname" [(ngModel)]="lastname" placeholder="Last name here">
-                </div>
-                <div class="form-outline form-white mb-3">
-                    <label class="form-label" for="email">Email</label>
-                  <input type="email" id="email" class="form-control form-control-lg" name="email" [(ngModel)]="email" placeholder="Email here">
-                </div>
-  
-                <div class="form-outline form-white mb-4">
-                    <label class="form-label" for="typePasswordX">Password</label>
-                  <input [(ngModel)]="password" type="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password here"/>
-                </div>
-  
-  
-               <p class="fw-bold pb-lg-2 text-danger">{{errorMsg}}</p>
-  
-                <button class="btn btn-success btn-lg px-5">Dodaj</button>
-                <br>
-                <br>
-  
-                <div class="error-message text-danger"> {{error}} </div>
-  
-  
-              </div>
-  
-  
+                <h4 class="text-white">Dodaj korisnika</h4>
+                <form [formGroup]="userForm" (submit)="addUser()">
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Email </label>
+                      <input [formControlName]="'email'" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email here" name="email">
+                      <div class="error-message text-danger" *ngIf="userForm.get('email')?.errors?.['required']"> Email is required! </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Ime</label>
+                      <input [formControlName]="'firstname'" type="text" class="form-control" id="firstname" name="firstname">
+                      <div class="error-message text-danger" *ngIf="userForm.get('lastname')?.errors?.['required']"> First name is required! </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Prezime</label>
+                      <input [formControlName]="'lastname'" type="text" class="form-control" id="lastname" >
+                      <div class="error-message text-danger" *ngIf="userForm.get('lastname')?.errors?.['required']"> Last name is required! </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Lozinka</label>
+                      <input [formControlName]="'password'" type="password" class="form-control" id="password" >
+                      <div class="error-message text-danger" *ngIf="userForm.get('password')?.errors?.['required']"> Password is required! </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                      <label for="exampleFormControlSelect1">Privilegije</label>
+                      <select multiple class="form-control" id="roleSelect" [(ngModel)]="user.roles" [ngModelOptions]="{standalone: true}" name="select">
+                        <option [value]="1">can_create</option>
+                        <option [value]="4">can_read</option>
+                        <option [value]="3">can_update</option>
+                        <option [value]="2">can_delete</option>
+                      </select>
+                      <br>
+                      <button [disabled]="!userForm.valid" type="submit" class="btn btn-success">Dodaj</button>
+                      <br> <br>
+                      <div class="error-message text-danger"> {{errorMsg}} </div>
+                  
+                    </div>
+                  
+                  
+                  
+                  
+                  </form>
+                  
             </div>
           </div>
         </div>

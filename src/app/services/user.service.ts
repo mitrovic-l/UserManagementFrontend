@@ -25,6 +25,35 @@ export class UserService {
     })
    }
 
+   addUser(email: string, password: string, firstname: string, lastname: string, roles: Permission[], query: string){
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    let reqParamString = '';
+    if (roles.length > 0){
+      console.log("IMAM ROLE DA DODAM");
+      console.log(reqParamString);
+      
+      reqParamString = reqParamString.concat('&roleIDs=');
+      for (let roleID of roles) {
+        if (roles.indexOf(roleID)+1 != roles.length){
+          reqParamString = reqParamString.concat(roleID.toString() + '&roleIDs=')
+        } else {
+          reqParamString = reqParamString.concat(roleID.toString());
+        }
+      }
+    }
+    let fullUrl = `${this.apiUrl}/user`.concat('?roleIDs=0')
+    if (reqParamString !== ''){
+      fullUrl = fullUrl.concat(reqParamString)
+    }
+    return this.httpClient.post<User>(fullUrl, {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: password,
+      roles: []
+    }, {headers});
+   }
+
    getUser(email: string){
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
     return this.httpClient.get<User>(`${this.apiUrl}/user/find/`+email, {headers});

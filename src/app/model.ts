@@ -4,8 +4,15 @@ export interface User{
     lastname: string,
     email: string,
     password: string,
-    permissions: string[]
+    roles: Permission[]
 }
 export interface JWT{
     jwt: string
+}
+export interface RoleType{
+    role: string
+}
+export interface Permission{
+    id: number,
+    role: string
 }

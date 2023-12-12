@@ -1,4 +1,9 @@
 <div>
+  <small
+    >Your roles: <i>{{ currentRoles }}</i></small
+  >
+  <br />
+  <hr />
   <div *ngIf="currentRoles.indexOf('can_read') > -1">
     <table class="table table-hover table-bordered">
       <caption>
@@ -6,10 +11,11 @@
       </caption>
       <thead class="thead thead-dark">
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">USER ID</th>
           <th scope="col">Ime</th>
           <th scope="col">Prezime</th>
           <th scope="col">Email<small> (Klikni za editovanje) </small></th>
+          <th scope="col">Privilegije</th>
           <th scope="col">Brisanje</th>
         </tr>
       </thead>
@@ -27,6 +33,9 @@
             <span *ngIf="!(currentRoles.indexOf('can_update') > -1)">{{
               user.email
             }}</span>
+          </td>
+          <td>
+            <div *ngFor="let role of user.roles">{{role.role | role}}</div>
           </td>
 
           <td>
@@ -47,4 +56,13 @@
   <div *ngIf="!(currentRoles.indexOf('can_read') > -1)">
     <h1>Nemate ovlascenja za citanje korisnika.</h1>
   </div>
+  <hr>
+  <button
+    [disabled]="!(currentRoles.indexOf('can_create') > -1)"
+    class="btn btn-success"
+    (click)="newUser()"
+    [class.alert-success]
+  >
+    Dodaj korisnika
+  </button>
 </div>

@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
-
+//import { AdduserComponent } from './components/adduser/adduser.component';
+import { AdduserComponent } from './components/adduser/adduser.component';
+import { RolePipe } from './pipes/role.pipe'
 @NgModule({
   declarations: [
     LoginComponent,
     HomeComponent,
-    AppComponent
+    AppComponent,
+    AdduserComponent,
+    RolePipe
   ],
   imports: [
     BrowserModule,

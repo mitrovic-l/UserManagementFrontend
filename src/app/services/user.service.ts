@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {JWT, User} from "../model";
+import {JWT, User, Permission, RoleType} from "../model";
 import { Observable } from 'rxjs';
 
 
@@ -39,7 +39,7 @@ export class UserService {
    }
    getPermissionsForUser(userId: number){
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
-    return this.httpClient.get<string[]>(`${this.apiUrl}/user/roles/`+userId, {headers});
+    return this.httpClient.get<Permission[]>(`${this.apiUrl}/user/roles/`+userId, {headers});
    }
    deleteUser(userId: number): Observable<any>{
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};

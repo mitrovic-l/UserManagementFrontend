@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/model';
+import { User, RoleType } from 'src/app/model';
 import { UserService } from 'src/app/services/user.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit{
 
   users: User[] = [];
   currentRoles: string[] = [];
-
+  roleMap = new Map<number, string[]>();
   constructor(private userService: UserService, private router: Router){}
 
   ngOnInit(): void {
@@ -32,14 +32,6 @@ export class HomeComponent implements OnInit{
       console.log("USERS: " + JSON.stringify(this.users));
     })
   }
-  getPermissionsForUserWithId(userId: number): string[]{
-    let permissions = [];
-    this.userService.getPermissionsForUser(userId).subscribe(data => {
-      permissions = data
-      return permissions
-    });
-    return []
-  }
 
   delete(id: number){
     this.userService.deleteUser(id).subscribe( data => {
@@ -50,5 +42,7 @@ export class HomeComponent implements OnInit{
       }
     })
   }
-
+  newUser(){
+    this.router.navigate(['/add']);;
+  }
 }

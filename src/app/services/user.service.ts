@@ -37,5 +37,13 @@ export class UserService {
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
     return this.httpClient.get<User[]>(`${this.apiUrl}/user/all`, {headers});
    }
+   getPermissionsForUser(userId: number){
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    return this.httpClient.get<string[]>(`${this.apiUrl}/user/roles/`+userId, {headers});
+   }
+   deleteUser(userId: number): Observable<any>{
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    return this.httpClient.delete<any>(`${this.apiUrl}/user/delete/`+userId, {headers});
+    }
    
 }

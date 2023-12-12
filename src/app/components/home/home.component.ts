@@ -32,8 +32,23 @@ export class HomeComponent implements OnInit{
       console.log("USERS: " + JSON.stringify(this.users));
     })
   }
+  getPermissionsForUserWithId(userId: number): string[]{
+    let permissions = [];
+    this.userService.getPermissionsForUser(userId).subscribe(data => {
+      permissions = data
+      return permissions
+    });
+    return []
+  }
+
   delete(id: number){
-    
+    this.userService.deleteUser(id).subscribe( data => {
+      for (let i=0; i<this.users.length; i++){
+        if (this.users[i].id === id) {
+          this.users.splice(i, 1);
+        }
+      }
+    })
   }
 
 }

@@ -1,1 +1,35 @@
-<p>home works!</p>
+<div>
+    <div *ngIf="currentRoles.indexOf('can_read') > -1">
+      <table class="table table-hover table-bordered">
+        <caption>Lista korisnika</caption>
+        <thead class="thead thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Ime</th>
+          <th scope="col">Prezime</th>
+          <th scope="col">Email<small> (Klikni za editovanje) </small></th>
+          <th scope="col">Akcija</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{user.firstname}}</td>
+          <td>{{user.lastname}}</td>
+          <td>
+            <a *ngIf="currentRoles.indexOf('can_update') > -1" [routerLink]="'/edit/'+user.email">{{ user.email }}</a>
+            <span *ngIf="!(currentRoles.indexOf('can_update') > -1)" >{{user.email}}</span>
+          <td>
+            <button  [disabled]="!(currentRoles.indexOf('can_delete') > -1)" class="btn btn-danger" (click)="delete(user.id)" [class.alert-danger]>Delete</button>
+          </td>
+        </tr>
+  
+      </table>
+    </div>
+  
+    <div *ngIf="!(currentRoles.indexOf('can_read') > -1)">
+      <h1>Nemate ovlascenja za citanje korisnika.</h1>
+    </div>
+  
+  
+  </div>

@@ -25,8 +25,16 @@ export class UserService {
     })
    }
 
+   getUser(email: string){
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    return this.httpClient.get<User>(`${this.apiUrl}/user/find/`+email, {headers});
+   }
+   setUser(user: User){
+    this.currentUser = user;
+   }
+
    getUsers(): Observable<User[]> {
-    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("jwt")};
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
     return this.httpClient.get<User[]>(`${this.apiUrl}/user/all`, {headers});
    }
    

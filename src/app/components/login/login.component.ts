@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,20 @@ export class LoginComponent implements OnInit{
       if (JWT != null){
         localStorage.setItem('JWT', data.jwt);
         console.log("UBACEN TOKEN U LS");
+
+        this.userService.getUser(this.email).subscribe( data => {
+          this.userService.setUser(data);
+        })
+        if (localStorage.getItem('JWT') != null){
+          const helper = new JwtHelperService();
+          // @ts-ignore
+          const roles = helper.decodeToken(localStorage.getItem('JWT'));
+          console.log("OVO SU ROLES: " + roles.roles);
+          this.userService.currentPermissions = roles.roles;
+          if (roles.roles.length === 0){
+            alert("Nemate ni jednu permisiju!");
+          }
+        }
         this.router.navigate(['/']);
       }
       else {

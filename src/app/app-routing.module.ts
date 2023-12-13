@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { canreadGuard } from './guards/canread.guard';
 import { AdduserComponent } from './components/adduser/adduser.component';
+import { canaddGuard } from './guards/canadd.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: "add",
-    component: AdduserComponent
+    component: AdduserComponent,
+    canActivate: [canaddGuard]
   }
 ];
 

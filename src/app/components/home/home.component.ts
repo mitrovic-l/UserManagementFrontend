@@ -45,4 +45,8 @@ export class HomeComponent implements OnInit{
   newUser(){
     this.router.navigate(['/add']);;
   }
+  logOut(){
+    localStorage.removeItem('JWT');
+    this.router.navigate(['/login']);
+  }
 }

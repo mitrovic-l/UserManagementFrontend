@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
         this.errorMsg = 'Neispravno uneti podaci!';
       }
     }, error => {
-      this.errorMsg = error.error;
+      this.error = error.error;
     })
   }
 }

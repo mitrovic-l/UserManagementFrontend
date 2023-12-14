@@ -50,7 +50,7 @@ export class AdduserComponent implements OnInit{
     let reqParamString = '';
     this.userService.addUser(this.userForm.get('email')?.value,this.userForm.get('password')?.value, this.userForm.get('firstname')?.value, this.userForm.get('lastname')?.value, this.user.roles, reqParamString)
     .subscribe( data => {
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
     }, error => {
       alert(JSON.stringify("Korisnik sa tim emailom vec postoji."));
     })

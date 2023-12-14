@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdduserComponent } from './components/adduser/adduser.component';
 import { RolePipe } from './pipes/role.pipe'
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditComponent } from './components/edit/edit.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     AdduserComponent,
     RolePipe,
+    EditComponent,
     
   ],
   imports: [

@@ -53,7 +53,34 @@ export class UserService {
       roles: []
     }, {headers});
    }
-
+   updateUser(email: string, password: string, firstname: string, lastname: string, roles: Permission[], userId: number){
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    let reqParamString = '';
+    if (roles.length > 0){
+      console.log("IMAM ROLE DA DODAM");
+      //console.log(reqParamString);
+      
+      reqParamString = reqParamString.concat('&roleIDs=');
+      for (let roleID of roles) {
+        if (roles.indexOf(roleID)+1 != roles.length){
+          reqParamString = reqParamString.concat(roleID.toString() + '&roleIDs=')
+        } else {
+          reqParamString = reqParamString.concat(roleID.toString());
+        }
+      }
+    }
+    let fullUrl = `${this.apiUrl}/user/update/${userId}`.concat('?roleIDs=0')
+    if (reqParamString !== ''){
+      fullUrl = fullUrl.concat(reqParamString)
+    }
+    return this.httpClient.put<User>(fullUrl, {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      password: password,
+      roles: []
+    }, {headers});
+   }
    getUser(email: string){
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
     return this.httpClient.get<User>(`${this.apiUrl}/user/find/`+email, {headers});
@@ -69,6 +96,10 @@ export class UserService {
    getPermissionsForUser(userId: number){
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
     return this.httpClient.get<Permission[]>(`${this.apiUrl}/user/roles/`+userId, {headers});
+   }
+   findUser(email: string): Observable<User> {
+    const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};
+    return this.httpClient.get<User>(`${this.apiUrl}/user/find/`+email, {headers});
    }
    deleteUser(userId: number): Observable<any>{
     const headers = { 'Authorization': 'Bearer ' +  localStorage.getItem("JWT")};

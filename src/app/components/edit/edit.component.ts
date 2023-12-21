@@ -89,8 +89,7 @@ export class EditComponent implements OnInit{
       const user1 = data
       this.userId = user1.id;
       this.userService.updateUser(this.userForm.get('email')?.value, this.userPassword, this.userForm.get('firstname')?.value, this.userForm.get('lastname')?.value, this.permissions, this.userId).subscribe( data => {
-        console.log("aaaa");
-        //this.router.navigate(['/'])
+        this.router.navigate(['/'])
       }, error => {
         alert(JSON.stringify(error))
       })
